@@ -7,7 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 
 import { HomeComponent } from './components/home/home.component';
-import { FeedComponent } from './components/feed/feed.component';
+
 
 const routes = [
   {path: 'home', component:HomeComponent}
@@ -22,7 +22,6 @@ const materials = [
 @NgModule({
   declarations: [
     HomeComponent,
-    FeedComponent,
   ],
   imports: [
     CommonModule,

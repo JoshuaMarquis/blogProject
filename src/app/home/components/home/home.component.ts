@@ -57,17 +57,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.userLikes.push(id);
       this.persistance.set("userLikes", this.userLikes);
     }
-
-    
-/*     else if(btn === 'dislike'){
-      if(this.likeClicked) {this.likeClicked = !this.likeClicked;}
-      if(this.dislikeClicked){
-        //HANDLE DISLIKE -1 SERVICE
-      } else{
-        //HANDLE DISLIKE +1 SERVICE
-      }
-      this.dislikeClicked = !this.dislikeClicked;
-    } */
   }
 
   ngOnDestroy(): void {
@@ -75,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.patchSub.unsubscribe();
       }
   }
-
+  //Remove this log function
   log(args: any){
     console.log(args)
   }
