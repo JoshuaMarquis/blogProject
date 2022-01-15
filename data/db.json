@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Title for post One",
+      "publishDate": "Jan 14th",
+      "body": "Some body text here for post one",
+      "likeCount": 41,
+      "dislikeCount": 5
+    },
+    {
+      "id": 2,
+      "title": "Title for post Two",
+      "publishDate": "Jan 14th",
+      "body": "Some body text here for post two",
+      "likeCount": 1128,
+      "dislikeCount": 5
+    },
+    {
+      "id": 3,
+      "title": "Title for post Three",
+      "publishDate": "Jan 14th",
+      "body": "Some body text here for post three",
+      "likeCount": 12,
+      "dislikeCount": 34
+    }
+  ]
+}

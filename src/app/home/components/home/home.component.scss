@@ -1,0 +1,23 @@
+.post-container{
+    .mat-card-content{
+        font-size: 18px;
+    }
+    &-links{
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+    }
+
+    &-actions{
+        display:flex;
+
+    }
+}
+
+.archive-container{
+    padding: 0.8rem;
+    text-align: end;
+    a{
+        font-size: 18px;
+    }
+}
