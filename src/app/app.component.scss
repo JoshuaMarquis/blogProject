@@ -12,5 +12,9 @@
     text-align: end;
     a{
         font-size: 18px;
+        &:visited{
+            color: #0000EE;
+        }
+
     }
 }

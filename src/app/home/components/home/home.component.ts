@@ -46,23 +46,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
   }
 
-  handleLikeDislike(id:number, btn: string): void{
-    if(btn === 'like'){
-      let updatedPost : PostInterface;
-        this.patchSub = this.api.getPostById(id).pipe(
-        switchMap((post)=>{
-        updatedPost = {...post, likeCount:post.likeCount+1}
-        return this.api.updateLikeCount(updatedPost)
-      })).subscribe();
+  handleLikeDislike(id:number): void{
+    let updatedPost : PostInterface;
+      this.patchSub = this.api.getPostById(id).pipe(
+      switchMap((post)=>{
+      updatedPost = {...post, likeCount:post.likeCount+1}
+      return this.api.updateLikeCount(updatedPost)
+    })).subscribe();
 
-      //Ensure duplicates aren't made
-      if(this.userLikes.includes(id)){
-        throw new Error("User Already Liked this post");
-      }
-
-      this.userLikes.push(id);
-      this.persistance.set("userLikes", this.userLikes);
+    //Ensure duplicates aren't made
+    if(this.userLikes.includes(id)){
+      throw new Error("User Already Liked this post");
     }
+
+    this.userLikes.push(id);
+    this.persistance.set("userLikes", this.userLikes);
   }
 
   ngOnDestroy(): void {
