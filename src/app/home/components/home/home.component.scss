@@ -1,7 +1,5 @@
 .post-container{
-    .mat-card-content{
-        font-size: 18px;
-    }
+    padding: 10px;
     &-links{
         display: flex;
         align-items: center;
@@ -12,12 +10,18 @@
         display:flex;
 
     }
+    .mat-card-title{
+        padding-bottom: 10px;
+        span{
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
 }
 
-.archive-container{
-    padding: 0.8rem;
-    text-align: end;
-    a{
-        font-size: 18px;
-    }
+
+.mat-display-1{
+    margin: 0 0 0 20px;
+    padding-top: 20px;
 }

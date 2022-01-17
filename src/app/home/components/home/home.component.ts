@@ -22,11 +22,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.userLikes = [];
     }
     this.initPosts()
+    console.log(Date());
   }
 
   initPosts(): void{
       this.posts$ = this.api.fetchFeedPosts().pipe(
         map((postArray: PostInterface[])=>{
+          //Get most recent posts and limit to 5
+          postArray = postArray.reverse();
+          console.log(postArray)
+          postArray = postArray.slice(0,5);
+          console.log(postArray)
           postArray = postArray.map((post:PostInterface)=>{
             if(this.userLikes.includes(post.id)){
               post = {...post, userLiked: true}

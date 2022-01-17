@@ -12,6 +12,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PostDetailModule } from './post-detail/post-detail.module';
 
 const materials = [
   MatToolbarModule,
@@ -31,6 +32,7 @@ const materials = [
     materials,
     HomeModule,
     AboutModule,
+    PostDetailModule,
     HttpClientModule
   ],
   providers: [],

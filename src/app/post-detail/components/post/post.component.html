@@ -1,0 +1,12 @@
+<div class="post-detail-container" *ngIf="(post$|async)">
+    <mat-card>
+        <mat-card-title class="mat-display-1">{{(post$|async)?.title}}</mat-card-title>
+        <mat-card-subtitle>{{(post$|async)?.publishDate|date:'short'}}</mat-card-subtitle>
+        <mat-card-content>{{(post$|async)?.body}}</mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button>Home</button>
+            <button mat-stroked-button><a routerLink="/post/6">Previous</a></button>
+            <button mat-stroked-button>Next</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

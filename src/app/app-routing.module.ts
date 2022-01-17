@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
+  //For now redirect unknown paths to home
+  //{path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
