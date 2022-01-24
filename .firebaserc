@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fir-angular-auth-fb34a": {
+      "hosting": {
+        "blogProject": [
+          "fir-angular-auth-fb34a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fir-angular-auth-fb34a"
+  }
+}

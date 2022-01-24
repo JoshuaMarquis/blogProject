@@ -105,6 +105,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "blogProject:build:production",
+            "firebaseProject": "fir-angular-auth-fb34a",
+            "firebaseHostingSite": "fir-angular-auth-fb34a"
+          }
         }
       }
     }

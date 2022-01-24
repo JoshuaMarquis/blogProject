@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable, Subscription, switchMap,} from 'rxjs';
 import { PostInterface } from 'src/app/shared/models/post.interface';
-import { ApiRequestService } from 'src/app/shared/services/api-request.service';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   patchSub ?: Subscription;
   userLikes !: number[];
 
-  constructor(private api : ApiRequestService, private persistance: PersistanceService) { }
+  constructor(private persistance: PersistanceService, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
     this.userLikes = this.persistance.get('userLikes');
@@ -26,13 +26,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   initPosts(): void{
-      this.posts$ = this.api.fetchFeedPosts().pipe(
+    this.posts$ = this.firestore.collection<PostInterface>('posts').valueChanges().pipe(
         map((postArray: PostInterface[])=>{
           //Get most recent posts and limit to 5
           postArray = postArray.reverse();
-          console.log(postArray)
           postArray = postArray.slice(0,5);
-          console.log(postArray)
           postArray = postArray.map((post:PostInterface)=>{
             if(this.userLikes.includes(post.id)){
               post = {...post, userLiked: true}
@@ -43,16 +41,16 @@ export class HomeComponent implements OnInit, OnDestroy {
           })
           return postArray;
         })
-      )
+      );
   }
 
   handleLikeDislike(id:number): void{
     let updatedPost : PostInterface;
-      this.patchSub = this.api.getPostById(id).pipe(
+/*       this.patchSub = this.api.getPostById(id).pipe(
       switchMap((post)=>{
       updatedPost = {...post, likeCount:post.likeCount+1}
       return this.api.updateLikeCount(updatedPost)
-    })).subscribe();
+    })).subscribe(); */
 
     //Ensure duplicates aren't made
     if(this.userLikes.includes(id)){

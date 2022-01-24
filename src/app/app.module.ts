@@ -13,6 +13,13 @@ import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PostDetailModule } from './post-detail/post-detail.module';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 
 const materials = [
   MatToolbarModule,
@@ -33,7 +40,12 @@ const materials = [
     HomeModule,
     AboutModule,
     PostDetailModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    AngularFireAuthModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
