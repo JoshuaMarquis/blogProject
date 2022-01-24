@@ -1,4 +1,4 @@
-<div class="post-detail-container" *ngIf="(post)">
+<div class="post-detail-container" *ngIf="post$|async as post;">
     <mat-card>
         <mat-card-title class="mat-display-1">{{post.title}}</mat-card-title>
         <mat-card-subtitle>{{post.publishDate|date:'short'}}</mat-card-subtitle>

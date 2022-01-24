@@ -12,11 +12,11 @@ import { PersistanceService } from 'src/app/shared/services/persistance.service'
 })
 export class PostComponent implements OnInit, OnDestroy {
   routeParamSub!: Subscription;
-  postSub ?: Subscription;
   patchSub ?: Subscription;
   postId !: number;
-  post ?: PostInterface;
+  post$ !: Observable<PostInterface>;
   userLikes !: number[];
+  postref !: any;
 
   constructor(private route: ActivatedRoute, private persistance: PersistanceService, private firestore: AngularFirestore) { }
 
@@ -31,16 +31,17 @@ export class PostComponent implements OnInit, OnDestroy {
   initPostDetail(): void{
     this.route.params.subscribe(params=>{
       this.postId = params['id'];
-        this.postSub = this.firestore.collection<PostInterface>('posts').valueChanges().subscribe((postArray: PostInterface[])=>{
-          postArray.map((post: PostInterface) =>{
-            if(post.id == this.postId){
-              this.post = post;
-              if (this.userLikes.includes(post.id)){
-                this.post.userLiked = true;
-              }
+      this.postref = this.firestore.doc<PostInterface>(`posts/${this.postId}`);
+      if(this.postref){
+        this.post$ = this.postref.valueChanges().pipe(
+          map((post: PostInterface)=>{
+            if (this.userLikes.includes(post.id)){
+              post.userLiked = true;
             }
+            return post;
           })
-      })
+        );
+      }
     });
   }
 
@@ -69,8 +70,9 @@ export class PostComponent implements OnInit, OnDestroy {
       if(this.patchSub){
         this.patchSub.unsubscribe();
       }
-      if(this.postSub){
-        this.postSub.unsubscribe();
-      }
+  }
+
+  log(smt: any){
+    console.log(smt)
   }
 }
