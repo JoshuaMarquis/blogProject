@@ -1,0 +1,22 @@
+.table-container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 20px;
+
+    .archive-table{
+        width: 100%;
+        margin: 0 10% 0 10%;
+
+
+        .mat-header-cell{
+            text-align: center;
+            font-size: 28px;
+            color:rgba(0, 0, 0, 0.800);
+        }
+        .mat-cell{
+            font-size: 18px;
+        }
+    }
+}
+

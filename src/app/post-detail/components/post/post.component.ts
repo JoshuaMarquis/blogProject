@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, Subscription, switchMap } from 'rxjs';
+import { map, Observable, Subscription,} from 'rxjs';
 import { PostInterface } from 'src/app/shared/models/post.interface';
+import { HandleLikeService } from 'src/app/shared/services/handle-like.service';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
 
 @Component({
@@ -12,13 +13,12 @@ import { PersistanceService } from 'src/app/shared/services/persistance.service'
 })
 export class PostComponent implements OnInit, OnDestroy {
   routeParamSub!: Subscription;
-  patchSub ?: Subscription;
   postId !: number;
   post$ !: Observable<PostInterface>;
   userLikes !: number[];
   postref !: any;
 
-  constructor(private route: ActivatedRoute, private persistance: PersistanceService, private firestore: AngularFirestore) { }
+  constructor(private route: ActivatedRoute, private persistance: PersistanceService, private firestore: AngularFirestore, private handleLike: HandleLikeService) { }
 
   ngOnInit(): void {
     this.userLikes = this.persistance.get('userLikes');
@@ -45,21 +45,8 @@ export class PostComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleLikeDislike(id:number): void{
-/*     let updatedPost : PostInterface;
-      this.patchSub = this.api.getPostById(id).pipe(
-      switchMap((post)=>{
-      updatedPost = {...post, likeCount:post.likeCount+1}
-      return this.api.updateLikeCount(updatedPost)
-    })).subscribe(); */
-
-    //Ensure duplicates aren't made
-    if(this.userLikes.includes(id)){
-      throw new Error("User Already Liked this post");
-    }
-
-    this.userLikes.push(id);
-    this.persistance.set("userLikes", this.userLikes);
+  likeClicked(post: PostInterface): void{
+    this.handleLike.updateLike(post, this.userLikes);
   }
 
 
@@ -67,12 +54,6 @@ export class PostComponent implements OnInit, OnDestroy {
       if(this.routeParamSub){
         this.routeParamSub.unsubscribe();
       }
-      if(this.patchSub){
-        this.patchSub.unsubscribe();
-      }
   }
 
-  log(smt: any){
-    console.log(smt)
-  }
 }
