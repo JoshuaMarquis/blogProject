@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, Subscription,} from 'rxjs';
+import { Observable, of, Subscription, switchMap,} from 'rxjs';
 import { PostInterface } from 'src/app/shared/models/post.interface';
-import { HandleLikeService } from 'src/app/shared/services/handle-like.service';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
+import { PostsService } from 'src/app/shared/services/posts.service';
 
 @Component({
-  selector: 'app-post',
+  selector: 'blog-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
@@ -18,17 +17,13 @@ export class PostComponent implements OnInit, OnDestroy {
   userLikes !: number[];
   postref !: any;
 
-  constructor(private route: ActivatedRoute, private persistance: PersistanceService, private firestore: AngularFirestore, private handleLike: HandleLikeService) { }
+  constructor(private route: ActivatedRoute, private persistance: PersistanceService, private postsService: PostsService,) { }
 
   ngOnInit(): void {
-    this.userLikes = this.persistance.get('userLikes');
-    if(!this.userLikes){
-      this.userLikes = [];
-    }
     this.initPostDetail();
   }
 
-  initPostDetail(): void{
+/*   initPostDetail(): void{
     this.route.params.subscribe(params=>{
       this.postId = params['id'];
       this.postref = this.firestore.doc<PostInterface>(`posts/${this.postId}`);
@@ -43,10 +38,19 @@ export class PostComponent implements OnInit, OnDestroy {
         );
       }
     });
+  } */
+
+  initPostDetail(): void{
+    this.routeParamSub = this.route.params.subscribe(params=>{
+      this.postId = params['id'];
+      this.post$ = this.postsService.getPost(this.postId);
+    });
   }
 
-  likeClicked(post: PostInterface): void{
-    this.handleLike.updateLike(post, this.userLikes);
+
+
+  likeClicked(id:number): void{
+    this.postsService.updateLike(id);
   }
 
 

@@ -4,6 +4,5 @@ export interface PostInterface{
     publishDate: string,
     body: string,
     likeCount: number,
-    dislikeCount: number,
     userLiked: boolean,
 }

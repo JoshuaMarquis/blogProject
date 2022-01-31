@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HandleLikeService } from './handle-like.service';
+import { PostsService } from './posts.service';
 
-describe('HandleLikeService', () => {
-  let service: HandleLikeService;
+describe('PostsService', () => {
+  let service: PostsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HandleLikeService);
+    service = TestBed.inject(PostsService);
   });
 
   it('should be created', () => {

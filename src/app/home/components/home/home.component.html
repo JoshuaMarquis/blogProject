@@ -1,6 +1,6 @@
 <h1 class="mat-display-1">Posts</h1>
 
-<div class="post-container" *ngFor="let post  of (posts$ |async)">
+<div class="post-container" *ngFor="let post  of (posts$ |async) |slice: 0:5">
     <mat-card>
         <mat-card-title ><span [routerLink]="['/post',post.id]">{{post.title}}</span></mat-card-title>
         <mat-card-subtitle>{{post.publishDate |date: 'short'}}</mat-card-subtitle>
@@ -11,7 +11,7 @@
                 <div class="post-container-actions-like-btn">
                     <span class="button-text">{{post.likeCount}}</span>
                     <button mat-icon-button 
-                    (click)="likeClicked(post); post.userLiked= !post.userLiked; post.likeCount= post.likeCount+1" 
+                    (click)="likeClicked(post.id); post.userLiked= !post.userLiked; post.likeCount= post.likeCount+1" 
                     [disabled]="post.userLiked">
                         <mat-icon  [style.color]="post.userLiked ? 'green': '#00000000DE'" >thumb_up</mat-icon>
                     </button>
